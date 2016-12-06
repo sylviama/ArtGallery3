@@ -77,32 +77,56 @@ namespace PhotoGallery.DAL
         //(create a new art is already taken care of in ManageArtsContoller and its views)
 
         //For clicking "Add to cart"
-        public void AddToCart(string InputUserId, int InputArtId)
+        public string AddToCart(string InputUserId, int InputArtId)
         {
-            BuyerArtTable newBuyerArt = new BuyerArtTable();
-
-            //match the current art
-            Art newArt = Context.Arts.FirstOrDefault(a => a.ArtId == InputArtId);
-            newBuyerArt.Art = newArt;
-
-            //match the buyer
-            Buyer newOrExistBuyer = CreateNewBuyerIfBuyerDoesntExist(InputUserId);
-            try
+            bool ifArtBuyerComboAreadyExist = TestIfArtBuyerComboAlreadyExist(InputArtId, InputUserId);
+            if(ifArtBuyerComboAreadyExist==true)
             {
-                newBuyerArt.Buyer = newOrExistBuyer;
+                return "Already in Cart/Purchased/Return";
             }
-            catch (SystemException)
+            else
             {
+                BuyerArtTable newBuyerArt = new BuyerArtTable();
 
+                //match the current art
+                Art newArt = Context.Arts.FirstOrDefault(a => a.ArtId == InputArtId);
+                newBuyerArt.Art = newArt;
+
+                //match the buyer
+                Buyer newOrExistBuyer = CreateNewBuyerIfBuyerDoesntExist(InputUserId);
+                try
+                {
+                    newBuyerArt.Buyer = newOrExistBuyer;
+                }
+                catch (SystemException)
+                {
+
+                }
+
+                newBuyerArt.InCart = true;
+                newBuyerArt.PurchaseDate = DateTime.Now;
+                Context.BuyerArtTable.Add(newBuyerArt);
+                Context.SaveChanges();
+
+                return "Added To Cart!";
             }
+
             
-
-            newBuyerArt.InCart = true;
-            newBuyerArt.PurchaseDate = DateTime.Now;
-            Context.BuyerArtTable.Add(newBuyerArt);
-            Context.SaveChanges();
         }
 
+        public bool TestIfArtBuyerComboAlreadyExist(int InputArtId, string InputUserId)
+        {
+            //test if the input Art&Buyer combo already exist
+            BuyerArtTable IfExistCombo = Context.BuyerArtTable.FirstOrDefault(a => a.Art.ArtId == InputArtId && a.Buyer.SystemUser.Id == InputUserId);
+            if (IfExistCombo != null)
+            {
+                return true;//already exist
+            }
+            else
+            {
+                return false;
+            }
+        }
         public Buyer CreateNewBuyerIfBuyerDoesntExist(string InputUserId)
         {
             Buyer thatBuyer= Context.Buyers.FirstOrDefault(b => b.SystemUser.Id == InputUserId);

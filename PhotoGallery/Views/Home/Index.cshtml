@@ -26,7 +26,7 @@
                     @using (Html.BeginForm("AddToCart", "Purchase"))
                     {
                      <a class="btn" href="/Home/Detail/@art.ArtId/">Detail</a>
-                     <input class="btn btn-default" type="submit" name="InputArtId" value="Add To Cart"/>
+                     <input class="btn btn-default" type="submit" name="InputArtId" value="@art.ArtId" />
                     }
                 </div>
             }
