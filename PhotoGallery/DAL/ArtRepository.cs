@@ -44,22 +44,24 @@ namespace PhotoGallery.DAL
         }
 
         //for PurchaseController -- Cart action
-        public List<Art> InCartArt(string BuyerUserName)
+        public List<Art> InCartArt(string BuyerUserId)
         {
-            return Context.BuyerArtTable.Where(ba => ba.Buyer.SystemUser.UserName == BuyerUserName && ba.InCart == true).Select(a=>a.Art).ToList();
+            return Context.BuyerArtTable.Where(ba => ba.Buyer.SystemUser.Id == BuyerUserId && ba.InCart == true).Select(a=>a.Art).ToList();
         }
 
         //for PurchaseController -- PurchaseHistory action
-        public List<Art> PurchaseHistory(string BuyerUserName)
+        public List<Art> PurchaseHistory(string BuyerUserId)
         {
-            return Context.BuyerArtTable.Where(ba => ba.Buyer.SystemUser.UserName == BuyerUserName && ba.Purchased == true).Select(a => a.Art).ToList();
+            return Context.BuyerArtTable.Where(ba => ba.Buyer.SystemUser.Id == BuyerUserId && ba.Purchased == true).Select(a => a.Art).ToList();
         }
 
         //for ManageArtsController -- Index action
-        public List<Art> UploadedArts(string UploaderUserName)
+        public List<Art> UploadedArts(string UploaderUserId)
         {
-            return Context.Arts.Where(a => a.uploadedUser.UserName == UploaderUserName).ToList();
+            return Context.Arts.Where(a => a.uploadedUser.Id == UploaderUserId).ToList();
         }
+
+        
 
 
         /***********************create******************/

@@ -24,13 +24,7 @@ namespace PhotoGallery.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public ActionResult AddToCart(int ArtId)
-        //{
-        //    ArtRepository repo = new ArtRepository();
-        //    var inputUserId = User.Identity.GetUserId();
-        //    repo.AddToCart(inputUserId, ArtId);
-        //}
+        
 
         
     }

@@ -21,7 +21,7 @@ namespace PhotoGallery.Controllers
         public ActionResult Index()
         {
             ArtRepository repo = new ArtRepository();
-            return View(repo.UploadedArts(User.Identity.GetUserName()));
+            return View(repo.UploadedArts(User.Identity.GetUserId()));
             
         }
 

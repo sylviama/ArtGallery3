@@ -4,7 +4,20 @@
 }
 
 <h3>My Shopping Cart</h3>
-@ViewBag.thisId
+<div class="stayOnRight">
+    <form action="PurchaseHistory" method="POST">
+        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
+                data-amount="999"
+                data-name="Stripe.com"
+                data-description="Widget"
+                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                data-locale="auto"
+                data-zip-code="true">
+        </script>
+    </form>
+</div>
+
 @foreach(var art in ViewBag.InCartArts)
 {
     <div class="card card-size z-depth-3">
@@ -14,5 +27,7 @@
    </div>
 }
 
-<button class="btn btn-default">Check Out</button>
+@*<button class="btn btn-default">Check Out</button>*@
+
+
 

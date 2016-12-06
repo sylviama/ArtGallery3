@@ -19,7 +19,7 @@ namespace PhotoGallery.Controllers
         public ActionResult Cart()
         {
             ArtRepository repo = new ArtRepository();
-            ViewBag.InCartArts = repo.InCartArt(User.Identity.GetUserName());
+            ViewBag.InCartArts = repo.InCartArt(User.Identity.GetUserId());
             return View();
         }
 
@@ -28,7 +28,7 @@ namespace PhotoGallery.Controllers
         public ActionResult PurchaseHistory()
         {
             ArtRepository repo = new ArtRepository();
-            ViewBag.PurchaseHistory = repo.PurchaseHistory(User.Identity.GetUserName());
+            ViewBag.PurchaseHistory = repo.PurchaseHistory(User.Identity.GetUserId());
             return View();
         }
 
