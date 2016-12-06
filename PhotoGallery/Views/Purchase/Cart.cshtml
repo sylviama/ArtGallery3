@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Cart";
+}
+
+<h3>My Shopping Cart</h3>
+@ViewBag.thisId
+@foreach(var art in ViewBag.InCartArts)
+{
+    <div class="card card-size z-depth-3">
+        <img width="100" height="80" src="@art.Link" />
+        <p>@art.ArtName</p>
+        <a>Remove</a>
+   </div>
+}
+
+<button class="btn btn-default">Check Out</button>
+

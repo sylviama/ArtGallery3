@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@using Microsoft.AspNet.Identity
+
+
+
+<div>
+    
+        <h3 class="subtitle center-align regular-2 grey-text">Photo Gallery</h3>
+        
+            @foreach (var art in ViewBag.AllArts)
+            {
+                <div class="col-sm-6 col-lg-4 col-md-4">
+                    <div class="card card-size z-depth-3 hoverable">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" src='@art.Link'>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">@art.ArtName<i class="material-icons right">close</i></span>
+                        </div>
+                    </div>
+                    <a class="btn" href="/Home/Detail/@art.ArtId/">Detail</a>
+                    @*<a class="btn" href="/Purchase/AddToCart/@art.ArtId">Add To Chart</a>*@
+
+                    @using (Html.BeginForm("AddToCart", "Purchase"))
+                    {
+                     <input type="submit" value= @art.ArtId name="InputArtId"/>
+                    }
+                </div>
+            }
+                
+
+</div>
+
+ 
+
+    
