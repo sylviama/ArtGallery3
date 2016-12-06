@@ -51,7 +51,7 @@ namespace PhotoGallery.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ArtId,ArtName,Link,ArtType,FormatType,Size,Dimension")] Art art)
+        public ActionResult Create([Bind(Include = "ArtId,ArtName,Link,ArtType,FormatType,Size,Dimension,CurrentPrice")] Art art)
         {
             if (ModelState.IsValid)
             {
@@ -84,7 +84,7 @@ namespace PhotoGallery.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ArtId,ArtName,Link,ArtType,FormatType,Size,Dimension")] Art art)
+        public ActionResult Edit([Bind(Include = "ArtId,ArtName,Link,ArtType,FormatType,Size,Dimension,CurrentPrice")] Art art)
         {
             if (ModelState.IsValid)
             {

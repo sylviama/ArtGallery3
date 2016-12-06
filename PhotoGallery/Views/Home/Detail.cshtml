@@ -3,7 +3,7 @@
     ViewBag.Title = "Detail";
 }
 <br />
-<a class="btn btn-default" href="/Home/Index/">Back</a>
+<a class="btn btn-large" href="/Home/Index/">Back</a>
 <br />
 <h3>@ViewBag.detail.ArtName</h3>
 <p>Type: @ViewBag.detail.ArtType</p>
@@ -11,6 +11,7 @@
 <p>Size: @ViewBag.detail.Size</p>
 <p>Dimension: @ViewBag.detail.Dimension</p>
 <p>Photographer: @ViewBag.detail.Artist</p>
+<p><b>Price: $@ViewBag.detail.CurrentPrice</b></p>
 <img src='@ViewBag.detail.Link' />
 
 

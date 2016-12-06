@@ -5,10 +5,12 @@
 
 <h3>My Shopping Cart</h3>
 <div class="stayOnRight">
+    <h6><b>Total Payment: $@ViewBag.TotalPayment</b></h6>
+    <br />
     <form action="PurchaseHistory" method="POST">
         <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                 data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
-                data-amount="999"
+                data-amount="@ViewBag.TotalPaymentForStripe"
                 data-name="Stripe.com"
                 data-description="Widget"
                 data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
@@ -22,12 +24,17 @@
 {
     <div class="card card-size z-depth-3">
         <img width="100" height="80" src="@art.Link" />
-        <p>@art.ArtName</p>
-        <a>Remove</a>
+        <p>ArtName: @art.ArtName</p>
+        <p>Price:$@art.CurrentPrice </p>
+        @using (Html.BeginForm("Delete", "Purchase"))
+        {
+            <button class="btn btn-default" type="submit" value="@art.ArtId" name="InputArtId">Remove Item</button>
+        }
+        
    </div>
 }
 
-@*<button class="btn btn-default">Check Out</button>*@
+
 
 
 

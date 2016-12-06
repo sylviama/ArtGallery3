@@ -18,6 +18,7 @@ namespace PhotoGallery.Models
         public string FormatType { get; set; }
         public string Size { get; set; }
         public string Dimension { get; set; }
+        public int CurrentPrice { get; set; }
         public virtual Artist Artist { get; set; }
 
         public virtual ApplicationUser uploadedUser { get; set; }

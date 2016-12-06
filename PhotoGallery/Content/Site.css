@@ -32,17 +32,19 @@ textarea {
     height:100%;
 }
 
-.btn{
-    padding-left:1px;
-    padding-right:1px;
+.btn-default{
+    padding-left:1.5em;
+    padding-right:1.5em;
 }
 
 .cartImage{
-    margin-left:1px;
+    margin-left:2px;
 }
 
 .stayOnRight{
     float:right;
+    border:dashed grey 1px;
+    padding: 2em;
 }
 
 

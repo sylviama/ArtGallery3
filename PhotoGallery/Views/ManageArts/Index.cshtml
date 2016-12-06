@@ -4,18 +4,16 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h4>Manage Your Uploads</h4>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
+        <th></th>
         <th>
             @Html.DisplayNameFor(model => model.ArtName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Link)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ArtType)
@@ -29,16 +27,19 @@
         <th>
             @Html.DisplayNameFor(model => model.Dimension)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentPrice)
+        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.ArtName)
+            <img src="@item.Link" width="80" height="60"/>
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Link)
+            @Html.DisplayFor(modelItem => item.ArtName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ArtType)
@@ -51,6 +52,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Dimension)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CurrentPrice)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ArtId }) |

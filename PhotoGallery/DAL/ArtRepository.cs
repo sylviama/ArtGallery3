@@ -5,6 +5,7 @@ using System.Web;
 using PhotoGallery.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity.Migrations;
 
 namespace PhotoGallery.DAL
 {
@@ -23,11 +24,7 @@ namespace PhotoGallery.DAL
 
 
         /************read************/
-        //public BuyerArtTable GetString()
-        //{
-
-        //    return Context.BuyerArtTable.FirstOrDefault(b => b.Buyer.BuyerId == 1);
-        //}
+        
         public List<Art> GetAllArts()
         {
             return Context.Arts.ToList();
@@ -43,7 +40,7 @@ namespace PhotoGallery.DAL
             return Context.Arts.FirstOrDefault(a => a.ArtId == id);
         }
 
-        //for PurchaseController -- Cart action
+        //for PurchaseController--Cart action
         public List<Art> InCartArt(string BuyerUserId)
         {
             return Context.BuyerArtTable.Where(ba => ba.Buyer.SystemUser.Id == BuyerUserId && ba.InCart == true).Select(a=>a.Art).ToList();
@@ -53,6 +50,19 @@ namespace PhotoGallery.DAL
         public List<Art> PurchaseHistory(string BuyerUserId)
         {
             return Context.BuyerArtTable.Where(ba => ba.Buyer.SystemUser.Id == BuyerUserId && ba.Purchased == true).Select(a => a.Art).ToList();
+        }
+
+        //calculate total payment
+        public int CalculateTotalPayment(string InputUserId)
+        {
+            List<Art> artsInCart = Context.BuyerArtTable.Where(b => b.Buyer.SystemUser.Id == InputUserId && b.InCart == true).Select(a => a.Art).ToList();
+            int totalPayment = 0;
+            foreach (var a in artsInCart)
+            {
+                totalPayment+= a.CurrentPrice;
+            }
+
+            return totalPayment;
         }
 
         //for ManageArtsController -- Index action
@@ -81,13 +91,29 @@ namespace PhotoGallery.DAL
         //For clicking "Add to cart"
         public string AddToCart(string InputUserId, int InputArtId)
         {
-            bool ifArtBuyerComboAreadyExist = TestIfArtBuyerComboAlreadyExist(InputArtId, InputUserId);
-            if(ifArtBuyerComboAreadyExist==true)
+            int ifArtBuyerComboAreadyExistId = TestIfArtBuyerComboAlreadyExistId(InputArtId, InputUserId);
+            if(ifArtBuyerComboAreadyExistId!=0)
             {
-                return "Already in Cart/Purchased/Return";
+                BuyerArtTable existBuyerArt = Context.BuyerArtTable.FirstOrDefault(b => b.BuyerArtId == ifArtBuyerComboAreadyExistId);
+                if(existBuyerArt.InCart==true)
+                {
+                    return "Already in Cart/Purchased/Return";
+                }
+                else if(existBuyerArt.InCart==false && existBuyerArt.Purchased==true)
+                {
+                    return "Already Purchased";
+                }else
+                {
+                    //if has BuyerArtCombo record, but InCart is not true
+                    existBuyerArt.InCart = true;
+                    Context.SaveChanges();
+                    return "Added To Cart(again)!";
+                }
+                    
             }
             else
             {
+                //if doesn't have record yet, create new
                 BuyerArtTable newBuyerArt = new BuyerArtTable();
 
                 //match the current art
@@ -116,17 +142,17 @@ namespace PhotoGallery.DAL
             
         }
 
-        public bool TestIfArtBuyerComboAlreadyExist(int InputArtId, string InputUserId)
+        public int TestIfArtBuyerComboAlreadyExistId(int InputArtId, string InputUserId)
         {
             //test if the input Art&Buyer combo already exist
             BuyerArtTable IfExistCombo = Context.BuyerArtTable.FirstOrDefault(a => a.Art.ArtId == InputArtId && a.Buyer.SystemUser.Id == InputUserId);
             if (IfExistCombo != null)
             {
-                return true;//already exist
+                return IfExistCombo.BuyerArtId;//already exist
             }
             else
             {
-                return false;
+                return 0;
             }
         }
         public Buyer CreateNewBuyerIfBuyerDoesntExist(string InputUserId)
@@ -146,6 +172,15 @@ namespace PhotoGallery.DAL
         }
 
         
+
+        //remove art product from cart
+        public void RemoveArtFromCart(string InputUserId, int InputArtId)
+        {
+            BuyerArtTable findRemoveArtBuyerRecord = Context.BuyerArtTable.FirstOrDefault(b => b.Art.ArtId == InputArtId && b.Buyer.SystemUser.Id == InputUserId);
+            findRemoveArtBuyerRecord.InCart = false;
+            Context.BuyerArtTable.AddOrUpdate(findRemoveArtBuyerRecord);
+            Context.SaveChanges();
+        }
 
         //delete
         //update

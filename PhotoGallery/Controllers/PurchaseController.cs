@@ -20,6 +20,8 @@ namespace PhotoGallery.Controllers
         {
             ArtRepository repo = new ArtRepository();
             ViewBag.InCartArts = repo.InCartArt(User.Identity.GetUserId());
+            ViewBag.TotalPayment = repo.CalculateTotalPayment(User.Identity.GetUserId());
+            ViewBag.TotalPaymentForStripe = ViewBag.TotalPayment * 100;
             return View();
         }
 
@@ -95,25 +97,29 @@ namespace PhotoGallery.Controllers
         }
 
         // GET: Purchase/Delete/5
-        public ActionResult Delete(int id)
+        [HttpPost]
+        public ActionResult Delete(int InputArtId)
         {
-            return View();
+            ArtRepository repo = new ArtRepository();
+            repo.RemoveArtFromCart(User.Identity.GetUserId(), InputArtId);
+
+            return RedirectToAction("Cart");
         }
 
         // POST: Purchase/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+        //[HttpPost]
+        //public ActionResult Delete(int id, FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        TODO: Add delete logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //        return RedirectToAction("Cart");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
     }
 }
