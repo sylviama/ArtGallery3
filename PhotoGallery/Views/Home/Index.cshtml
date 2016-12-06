@@ -20,12 +20,13 @@
                             <span class="card-title grey-text text-darken-4">@art.ArtName<i class="material-icons right">close</i></span>
                         </div>
                     </div>
-                    <a class="btn" href="/Home/Detail/@art.ArtId/">Detail</a>
-                    @*<a class="btn" href="/Purchase/AddToCart/@art.ArtId">Add To Chart</a>*@
+                    
+                   
 
                     @using (Html.BeginForm("AddToCart", "Purchase"))
                     {
-                     <input type="submit" value= @art.ArtId name="InputArtId"/>
+                     <a class="btn" href="/Home/Detail/@art.ArtId/">Detail</a>
+                     <input class="btn btn-default" type="submit" name="InputArtId" value="Add To Cart"/>
                     }
                 </div>
             }
