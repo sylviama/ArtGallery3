@@ -1,0 +1,45 @@
+﻿@model IEnumerable<PhotoGallery.Models.Artist>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ArtistFirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArtistLastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArtistBirthday)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArtistFirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArtistLastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArtistBirthday)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ArtistId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ArtistId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ArtistId })
+        </td>
+    </tr>
+}
+
+</table>

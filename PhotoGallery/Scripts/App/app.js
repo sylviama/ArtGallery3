@@ -2,7 +2,7 @@
 
 app.controller("ArtSearch", ['$scope','$http',function ($scope, $http) {
 
-    
+    $(".dropdown-button").dropdown();
 
 
     //$scope.TestingFunction() = function () {

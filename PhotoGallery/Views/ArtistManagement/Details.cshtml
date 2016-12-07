@@ -1,0 +1,42 @@
+﻿@model PhotoGallery.Models.Artist
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Artist</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtistFirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtistFirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtistLastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtistLastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtistBirthday)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtistBirthday)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ArtistId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

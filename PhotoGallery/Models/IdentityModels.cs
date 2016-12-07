@@ -31,5 +31,7 @@ namespace PhotoGallery.Models
         }
 
         public System.Data.Entity.DbSet<PhotoGallery.Models.Art> Arts { get; set; }
+
+        public System.Data.Entity.DbSet<PhotoGallery.Models.Artist> Artists { get; set; }
     }
 }

@@ -182,6 +182,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArtApiController.cs" />
+    <Compile Include="Controllers\ArtistManagementController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageArtsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -303,6 +304,11 @@
     <Content Include="Views\ManageArts\Index.cshtml" />
     <Content Include="Views\Purchase\AddToCart.cshtml" />
     <Content Include="Views\Purchase\Delete.cshtml" />
+    <Content Include="Views\ArtistManagement\Create.cshtml" />
+    <Content Include="Views\ArtistManagement\Delete.cshtml" />
+    <Content Include="Views\ArtistManagement\Details.cshtml" />
+    <Content Include="Views\ArtistManagement\Edit.cshtml" />
+    <Content Include="Views\ArtistManagement\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
