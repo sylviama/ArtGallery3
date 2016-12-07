@@ -46,5 +46,14 @@ textarea {
     padding: 2em;
 }
 
+.navbar-brand{
+    font-family: 'Satisfy', cursive;
+    font-size:1.5em;
+}
+
+h4{
+    font-family: 'Satisfy', cursive;
+}
+
 
 
