@@ -187,10 +187,12 @@ namespace PhotoGallery.DAL
         public void FromInCartToPurchased(string InputUserId, int InputArtId)
         {
             BuyerArtTable findInCartToPurchasedArt = Context.BuyerArtTable.FirstOrDefault(b => b.Art.ArtId == InputArtId && b.Buyer.SystemUser.Id == InputUserId);
+
             findInCartToPurchasedArt.InCart = false;
             findInCartToPurchasedArt.Purchased = true;
             findInCartToPurchasedArt.PurchasePrice = Context.Arts.FirstOrDefault(a => a.ArtId == InputArtId).CurrentPrice;
             findInCartToPurchasedArt.PurchaseDate = DateTime.Now;
+
             Context.BuyerArtTable.AddOrUpdate(findInCartToPurchasedArt);
             Context.SaveChanges();
             

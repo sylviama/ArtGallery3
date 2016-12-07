@@ -79,10 +79,8 @@ namespace PhotoGallery.Controllers
         {
             ArtRepository repo = new ArtRepository();
             var inputUserId = User.Identity.GetUserId();
-            repo.AddToCart(inputUserId, InputArtId);
-
+            ViewBag.message=repo.AddToCart(inputUserId, InputArtId);
             
-            //return View();
             return RedirectToAction("Cart");
         }
 

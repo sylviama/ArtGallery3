@@ -4,12 +4,28 @@
 }
 
 
-<h3>Purchase History</h3>
-@foreach (var art in ViewBag.PurchaseHistory)
-{
-    <div class="card card-size z-depth-3">
-        <img class="cartImage" width="100" height="80" src="@art.Link" />
-        <p>@art.ArtName</p>
-    </div>
-}
+<h4>Purchase History</h4>
+
+
+<table class="table float-left" width="400">
+    <tr>
+        <th></th>
+        <th>Art Name</th>
+        <th>Price</th>
+    </tr>
+    @foreach (var art in ViewBag.PurchaseHistory)
+    {
+        <tr>
+            <td>
+                <img width="100" height="80" src="@art.Link" />
+            </td>
+            <td>
+                <h5>@art.ArtName</h5>
+            </td>
+            <td>
+                <h6>$@art.CurrentPrice </h6>
+            </td>
+        </tr>
+    }
+</table>
 
