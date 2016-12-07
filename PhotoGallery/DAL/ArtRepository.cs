@@ -23,8 +23,8 @@ namespace PhotoGallery.DAL
         }
 
 
-        /************read************/
-        
+        /***********************read************************/
+
         public List<Art> GetAllArts()
         {
             return Context.Arts.ToList();
@@ -74,7 +74,7 @@ namespace PhotoGallery.DAL
         
 
 
-        /***********************create******************/
+        /***********************create************************/
 
         //create new Art for ManageArtsController 
         public void CreateNewArt(string InputUserId, Art art)
@@ -171,8 +171,9 @@ namespace PhotoGallery.DAL
             
         }
 
-        
 
+        
+        /*************************Update***********************/
         //remove art product from cart
         public void RemoveArtFromCart(string InputUserId, int InputArtId)
         {
@@ -182,7 +183,22 @@ namespace PhotoGallery.DAL
             Context.SaveChanges();
         }
 
+        //Change from InCart to Purchased 
+        public void FromInCartToPurchased(string InputUserId, int InputArtId)
+        {
+            BuyerArtTable findInCartToPurchasedArt = Context.BuyerArtTable.FirstOrDefault(b => b.Art.ArtId == InputArtId && b.Buyer.SystemUser.Id == InputUserId);
+            findInCartToPurchasedArt.InCart = false;
+            findInCartToPurchasedArt.Purchased = true;
+            findInCartToPurchasedArt.PurchasePrice = Context.Arts.FirstOrDefault(a => a.ArtId == InputArtId).CurrentPrice;
+            findInCartToPurchasedArt.PurchaseDate = DateTime.Now;
+            Context.BuyerArtTable.AddOrUpdate(findInCartToPurchasedArt);
+            Context.SaveChanges();
+            
+        }
+
+
+
         //delete
-        //update
+        
     }
 }

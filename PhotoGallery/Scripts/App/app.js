@@ -2,6 +2,9 @@
 
 app.controller("ArtSearch", ['$scope','$http',function ($scope, $http) {
 
+    
+
+
     //$scope.TestingFunction() = function () {
     //    $http.get('/Api/ArtApi/').then(function success(response) {
     //        //$scope.artArray = response.data;

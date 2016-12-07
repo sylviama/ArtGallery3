@@ -25,13 +25,25 @@ namespace PhotoGallery.Controllers
             return View();
         }
 
-        
+
 
         public ActionResult PurchaseHistory()
         {
             ArtRepository repo = new ArtRepository();
             ViewBag.PurchaseHistory = repo.PurchaseHistory(User.Identity.GetUserId());
             return View();
+        }
+
+        public ActionResult ChangeToPurchased()
+        {
+            ArtRepository repo = new ArtRepository();
+            List<Art> purchasedArts=repo.InCartArt(User.Identity.GetUserId());
+            foreach(var art in purchasedArts)
+            {
+                repo.FromInCartToPurchased(User.Identity.GetUserId(), art.ArtId);
+            }
+
+            return RedirectToAction("PurchaseHistory");
         }
 
         // GET: Purchase/Details/5
